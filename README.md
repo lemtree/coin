@@ -76,9 +76,10 @@ func (hb *HuobiClient) RealTimeTransactionJson(coinType coinT, currencyType curr
 ```
 
 ### 交易相关API
+	注：交易相关API需要取得huobi的交易秘钥才能访问
 ```go
-func (hb *HuobiClient) GetAccountInfo() (*AccountInfo, error)
-func (hb *HuobiClient) GetAccountInfoJson() ([]byte, error) 
+func (hb *HuobiClient) GetAccountInfo() (*AccountInfo, error){}
+func (hb *HuobiClient) GetAccountInfoJson() ([]byte, error){}
 func (hb *HuobiClient) GetOrders(coinType int) ([]Order, error) 
 func (hb *HuobiClient) GetOrdersJson(coinType int) ([]byte, error)
 func (hb *HuobiClient) OrderInfo(coinType, id int)
