@@ -1,0 +1,5 @@
+package huobi
+
+import (
+	"test"
+)
