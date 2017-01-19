@@ -5,13 +5,14 @@ digiccy trading platform API collection, such as Bitcoin, Litecoin. current comp
 ##火币网API V3 
 
 ## 安装
-···code
+```go
 go get github.com/lemtree/coin/huobi
-···
+```
 
 
 ## 实例
 
+```go
 package main
 
 import (
@@ -56,7 +57,7 @@ func checkError(err error) {
 		fmt.Println(err.Error())
 	}
 }
-
+```
 ## API接口说明
 本接口尽量保持和火币的API接口一致
 每个对应火币网的API接口函数都有2种，一种是直接返回火币api的原始json，另一种是解析后的struct，更方便操作。
