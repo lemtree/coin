@@ -101,8 +101,8 @@ func (hb *HuobiClient) GetNewDealOrdersJson(coinType int) ([]byte, error){}
 ## API接口说明
 本接口尽量保持和火币的API接口一致<br>
 每个对应火币网的API接口函数都有2种，一种是直接返回火币api的原始json，另一种是解析后的struct，更方便操作。<br>
-例如 func Quotation 返回struct, func QuotationJson返回api的原始json。其他接口也类似。<br>
-基于火币的API返回的原始Json，对于数字和字符串没有严格的区分，有的接口返回的json中价格是字符串，有的接口中是浮点型，如果你想保持和火币网一致，可以使用 funcname+Json的函数返回api的原始json，如果想规范点，则使用返回struct的接口，然后把返回的struct format成json，这样输出的json数字和字符串就统一了，不会出现价格可能是字符串也可能是浮点型的问题了。
+例如获取实时行情： func Quotation() 返回的是解析后的struct, func QuotationJson()返回的是huobi api的原始json。其他接口也类似。<br>
+<small>基于火币的API返回的原始Json，对于数字和字符串没有严格的区分，有的接口返回的json中价格是字符串，有的接口中是浮点型。如果客户端是弱类型语言则不需额外处理，但是强类型语言则可能直接导致异常。如果你想保持和火币网一致，可以使用 funcname+Json的函数返回api的原始json，如果想规范点，则使用返回struct的接口，然后把返回的struct format成json，这样输出的json数字和字符串就统一了，不会出现价格可能是字符串也可能是浮点型的问题了。</small>
 
 
 ## 更多
