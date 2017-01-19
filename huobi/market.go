@@ -1,3 +1,8 @@
+/**
+ * 火币 www.huobi.com API 行情接口
+ * Auth HuHeKun
+ * Date 2017-01-17
+ */
 package huobi
 
 import (
@@ -14,7 +19,7 @@ var RealTimeTransactionUrl = HOST + "%s/detail_%s_json.js"
 
 /**
  * 获取K线图
- * coinType 买入的数字货币 BTC\LTC
+ * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  * period 周期
  * length 数据条数
@@ -47,7 +52,7 @@ func (hb *HuobiClient) Kline(coinType coinT, currencyType currencyT, period peri
 
 /**
  * 获取K线图
- * coinType 买入的数字货币 BTC\LTC
+ * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  * period 周期
  * length 数据条数
@@ -105,7 +110,7 @@ func (hb *HuobiClient) KlineLtcCny(period periodT, length int) ([]Kline, error) 
 
 /**
  * 实时行情
- * coinType 买入的数字货币 BTC\LTC
+ * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  */
 func (hb *HuobiClient) Quotation(coinType coinT, currencyType currencyT) (*RealTimeQuotation, error) {
@@ -123,7 +128,7 @@ func (hb *HuobiClient) Quotation(coinType coinT, currencyType currencyT) (*RealT
 
 /**
  * 实时行情(返回API的json字符串)
- * coinType 买入的数字货币 BTC\LTC
+ * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  */
 func (hb *HuobiClient) QuotationJson(coinType coinT, currencyType currencyT) ([]byte, error) {
@@ -135,7 +140,7 @@ func (hb *HuobiClient) QuotationJson(coinType coinT, currencyType currencyT) ([]
 
 /**
  * 交易深度
- * coinType 买入的数字货币 BTC\LTC
+ * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  * length 返回的数据条数
  */
@@ -154,7 +159,7 @@ func (hb *HuobiClient) Depth(coinType coinT, currencyType currencyT, length int)
 
 /**
  * 交易深度(返回API的json字符串)
- * coinType 买入的数字货币 BTC\LTC
+ * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  * length 返回的数据条数
  */
@@ -165,6 +170,11 @@ func (hb *HuobiClient) DepthJson(coinType coinT, currencyType currencyT, length 
 	return hb.SendRequest(uri, "")
 }
 
+/**
+ * 买卖盘实时成交数据
+ * coinType 数字货币 BTC\LTC
+ * currency 法币类型 CNY\USD
+ */
 func (hb *HuobiClient) RealTimeTransaction(coinType coinT, currencyType currencyT) (*RealTimeTransactionData, error) {
 	transactionData := &RealTimeTransactionData{}
 	jsonBlob, err := hb.RealTimeTransactionJson(coinType, currencyType)
@@ -178,6 +188,11 @@ func (hb *HuobiClient) RealTimeTransaction(coinType coinT, currencyType currency
 	return transactionData, nil
 }
 
+/**
+ * 买卖盘实时成交数据
+ * coinType 数字货币 BTC\LTC
+ * currency 法币类型 CNY\USD
+ */
 func (hb *HuobiClient) RealTimeTransactionJson(coinType coinT, currencyType currencyT) ([]byte, error) {
 	coinName := hb.getCoinName(coinType)
 	marketName := hb.getMarketName(currencyType)

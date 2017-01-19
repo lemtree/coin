@@ -62,17 +62,17 @@ func checkError(err error) {
 ## 已经完成的API列表
 ### 行情相关API
 ```go
-func (hb *HuobiClient) Kline(coinType coinT, currencyType currencyT, period periodT, length int) ([]Kline, error) 
-func (hb *HuobiClient) KlineJson(coinType coinT, currencyType currencyT, period periodT, length int) ([]byte, error)
-func (hb *HuobiClient) KlineBtcCny(period periodT, length int) ([]Kline, error) 
-func (hb *HuobiClient) KlineBtcUsd(period periodT, length int) ([]Kline, error)
-func (hb *HuobiClient) KlineLtcCny(period periodT, length int) ([]Kline, error)
-func (hb *HuobiClient) Quotation(coinType coinT, currencyType currencyT) (*RealTimeQuotation, error)
-func (hb *HuobiClient) QuotationJson(coinType coinT, currencyType currencyT) ([]byte, error)
-func (hb *HuobiClient) Depth(coinType coinT, currencyType currencyT, length int) (*Depth, error) 
-func (hb *HuobiClient) DepthJson(coinType coinT, currencyType currencyT, length int) ([]byte, error)
-func (hb *HuobiClient) RealTimeTransaction(coinType coinT, currencyType currencyT) (*RealTimeTransactionData, error)
-func (hb *HuobiClient) RealTimeTransactionJson(coinType coinT, currencyType currencyT) ([]byte, error)
+func (hb *HuobiClient) Kline(coinType coinT, currencyType currencyT, period periodT, length int) ([]Kline, error){}
+func (hb *HuobiClient) KlineJson(coinType coinT, currencyType currencyT, period periodT, length int) ([]byte, error){}
+func (hb *HuobiClient) KlineBtcCny(period periodT, length int) ([]Kline, error){}
+func (hb *HuobiClient) KlineBtcUsd(period periodT, length int) ([]Kline, error){}
+func (hb *HuobiClient) KlineLtcCny(period periodT, length int) ([]Kline, error){}
+func (hb *HuobiClient) Quotation(coinType coinT, currencyType currencyT) (*RealTimeQuotation, error){}
+func (hb *HuobiClient) QuotationJson(coinType coinT, currencyType currencyT) ([]byte, error){}
+func (hb *HuobiClient) Depth(coinType coinT, currencyType currencyT, length int) (*Depth, error){} 
+func (hb *HuobiClient) DepthJson(coinType coinT, currencyType currencyT, length int) ([]byte, error){}
+func (hb *HuobiClient) RealTimeTransaction(coinType coinT, currencyType currencyT) (*RealTimeTransactionData, error){}
+func (hb *HuobiClient) RealTimeTransactionJson(coinType coinT, currencyType currencyT) ([]byte, error){}
 ```
 
 ### 交易相关API
@@ -80,22 +80,22 @@ func (hb *HuobiClient) RealTimeTransactionJson(coinType coinT, currencyType curr
 ```go
 func (hb *HuobiClient) GetAccountInfo() (*AccountInfo, error){}
 func (hb *HuobiClient) GetAccountInfoJson() ([]byte, error){}
-func (hb *HuobiClient) GetOrders(coinType int) ([]Order, error) 
-func (hb *HuobiClient) GetOrdersJson(coinType int) ([]byte, error)
-func (hb *HuobiClient) OrderInfo(coinType, id int)
-func (hb *HuobiClient) OrderInfoJson(coinType, id int) ([]byte, error)
-func (hb *HuobiClient) Buy(coinType int, price, amount float64) (*Result, error)
-func (hb *HuobiClient) BuyJson(coinType int, price, amount float64) ([]byte, error)
-func (hb *HuobiClient) Sell(coinType int, price, amount float64) (*Result, error) 
-func (hb *HuobiClient) SellJson(coinType int, price, amount float64) ([]byte, error)
-func (hb *HuobiClient) BuyMarket(coinType int, amount float64) (*Result, error) 
-func (hb *HuobiClient) BuyMarketJson(coinType int, amount float64) ([]byte, error) 
-func (hb *HuobiClient) SellMarket(coinType int, amount float64) (*Result, error)
-func (hb *HuobiClient) SellMarketJson(coinType int, amount float64) ([]byte, error) 
-func (hb *HuobiClient) CancelOrder(coinType, id int) (*Result, error)
-func (hb *HuobiClient) CancelOrderJson(coinType, id int) ([]byte, error) 
-func (hb *HuobiClient) GetNewDealOrders(coinType int) ([]OrderTraded, error) 
-func (hb *HuobiClient) GetNewDealOrdersJson(coinType int) ([]byte, error) 
+func (hb *HuobiClient) GetOrders(coinType int) ([]Order, error){}
+func (hb *HuobiClient) GetOrdersJson(coinType int) ([]byte, error){}
+func (hb *HuobiClient) OrderInfo(coinType, id int){}
+func (hb *HuobiClient) OrderInfoJson(coinType, id int) ([]byte, error){}
+func (hb *HuobiClient) Buy(coinType int, price, amount float64) (*Result, error){}
+func (hb *HuobiClient) BuyJson(coinType int, price, amount float64) ([]byte, error){}
+func (hb *HuobiClient) Sell(coinType int, price, amount float64) (*Result, error){}
+func (hb *HuobiClient) SellJson(coinType int, price, amount float64) ([]byte, error){}
+func (hb *HuobiClient) BuyMarket(coinType int, amount float64) (*Result, error){}
+func (hb *HuobiClient) BuyMarketJson(coinType int, amount float64) ([]byte, error){}
+func (hb *HuobiClient) SellMarket(coinType int, amount float64) (*Result, error){}
+func (hb *HuobiClient) SellMarketJson(coinType int, amount float64) ([]byte, error){}
+func (hb *HuobiClient) CancelOrder(coinType, id int) (*Result, error){}
+func (hb *HuobiClient) CancelOrderJson(coinType, id int) ([]byte, error){}
+func (hb *HuobiClient) GetNewDealOrders(coinType int) ([]OrderTraded, error){}
+func (hb *HuobiClient) GetNewDealOrdersJson(coinType int) ([]byte, error){}
 ```
 
 ## API接口说明
