@@ -1,8 +1,8 @@
-# coin
+# coin 数字货币交易平台API
 digiccy trading platform API collection, such as Bitcoin, Litecoin. current complete huobi api v3. 
 
 数字货币交易平台API，目前当前包含了火币网的API V3的大部分接口，包含交易和行情接口，剩余的接口会陆续完善。其他平台的API接口后续补充。
-#货币网API V3 
+##火币网API V3 
 
 ## 安装
 go get github.com/lemtree/coin/huobi
@@ -13,7 +13,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/lemtree/coin/huobi"
 )
 
