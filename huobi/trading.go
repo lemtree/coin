@@ -25,22 +25,43 @@ var huobiDebug bool
 
 type HuobiClient struct {
 	httpClient *http.Client
-	AccessKey  string
-	SecretKey  string
-	Market     string
+	accessKey  string
+	secretKey  string
+	market     string
 	//	trade_password
-	UserAgent string
+	userAgent string
 }
 
-func (hb *HuobiClient) SetApiKey(AccessKey, SecretKey string) {
-	hb.AccessKey = AccessKey
-	hb.SecretKey = SecretKey
-}
-
-// 默认市场为人民币市场
+// huobi client
 func NewHuobiClient() *HuobiClient {
 	client := &http.Client{}
-	return &HuobiClient{httpClient: client, AccessKey: "", SecretKey: "", Market: "cny", UserAgent: "HHK Client"}
+	return &HuobiClient{httpClient: client, accessKey: "", secretKey: "", market: "cny", userAgent: "HHK Client"}
+}
+
+/**
+ * 设置api访问秘钥
+ * accessKey huobi api AccessKey
+ * secretKey huobi api SecretKey
+ */
+func (hb *HuobiClient) SetApiKey(accessKey, secretKey string) {
+	hb.accessKey = accessKey
+	hb.secretKey = secretKey
+}
+
+/**
+ * 设置http header的User-Agent
+ * userAgent User-Agent信息
+ */
+func (hb *HuobiClient) SetUserAgent(userAgent string) {
+	hb.userAgent = userAgent
+}
+
+/**
+ * 设置交易市场，人民币市场还是美元市场
+ * market 交易市场(cny:人民币交易市场，usd:美元交易市场）
+ */
+func (hb *HuobiClient) SetMarket(market string) {
+	hb.market = market
 }
 
 /**
@@ -51,12 +72,12 @@ func (hb *HuobiClient) generateParameter(parameter map[string]string) string {
 	for key, val := range parameter {
 		v.Set(key, val)
 	}
-	v.Set("access_key", hb.AccessKey)
+	v.Set("access_key", hb.accessKey)
 	v.Set("created", strconv.Itoa(int(time.Now().Unix())))
-	v.Set("secret_key", hb.SecretKey)
+	v.Set("secret_key", hb.secretKey)
 	v.Set("sign", tools.MD5([]byte(v.Encode())))
 	v.Del("secret_key")
-	v.Set("market", hb.Market)
+	v.Set("market", hb.market)
 	return v.Encode()
 }
 
@@ -324,9 +345,10 @@ func (hb *HuobiClient) GetNewDealOrdersJson(coinType coinT) ([]byte, error) {
  * 发送交易请求到api接口获取数据，用于发起需要用户交易秘钥的请求
  */
 func (hb *HuobiClient) SendTradingRequest(parameter string) ([]byte, error) {
-	if len(hb.AccessKey) < 1 || len(hb.SecretKey) < 1 {
-		return []byte{}, errors.New("AccessKey和SecretKey不能为空")
+	if len(hb.accessKey) < 20 || len(hb.secretKey) < 20 {
+		return []byte{}, errors.New("error！the huobi AccessKey and SecretKey is incorrect.")
 	}
+
 	url := API_V3_URI
 	return hb.SendRequest(url, parameter)
 }
@@ -340,20 +362,11 @@ func (hb *HuobiClient) SendRequest(uri, parameter string) ([]byte, error) {
 	body := ioutil.NopCloser(strings.NewReader(parameter)) //把form数据编码
 	req, _ := http.NewRequest("POST", uri, body)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value") //post方式需要
-	req.Header.Add("User-Agent", hb.UserAgent)
+	req.Header.Add("User-Agent", hb.userAgent)
 	resp, err := hb.httpClient.Do(req) //发送请求
 	defer resp.Body.Close()            //一定要关闭resp.Body
 	data, err := ioutil.ReadAll(resp.Body)
 	return data, err
-}
-
-/**
- * 设置http header的User-Agent
- * userAgent User-Agent信息
- * parameter 请求的数据
- */
-func (hb *HuobiClient) SetUserAgent(userAgent string) {
-	hb.UserAgent = userAgent
 }
 
 func checkErr(err error) {
