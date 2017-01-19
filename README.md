@@ -1,7 +1,7 @@
 # coin 数字货币交易平台API
 digiccy trading platform API collection, such as Bitcoin, Litecoin. current complete huobi api v3. 
 
-数字货币交易平台API，目前当前包含了火币网的API V3的大部分接口，包含交易和行情接口，剩余的接口会陆续完善。其他平台的API接口后续补充。
+数字货币交易平台API，目前包含了火币网的API V3的大部分接口，包含交易和行情接口，剩余的接口会陆续完善。其他平台的API接口后续补充。
 ##火币网API V3 
 
 ## 安装
@@ -23,12 +23,12 @@ import (
 func main() {
 	c := huobi.NewHuobiClient()
 
-	//获取BTC-CNY行情，返回struct	
+	//获取BTC-CNY行情，返回解析好的struct	
 	QuoData, err := c.Quotation(huobi.COIN_BTC, huobi.CURRENCY_CNY)
 	checkError(err)
 	fmt.Println(QuoData)
 
-	//获取BTC-CNY行情，API返回的JSON
+	//获取BTC-CNY行情，返回的火币api的原始JSON
 	jsonBlob, err := c.QuotationJson(huobi.COIN_BTC, huobi.CURRENCY_CNY)
 	checkError(err)
 	fmt.Println(string(jsonBlob))
