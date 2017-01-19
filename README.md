@@ -5,7 +5,10 @@ digiccy trading platform API collection, such as Bitcoin, Litecoin. current comp
 ##火币网API V3 
 
 ## 安装
+···code
 go get github.com/lemtree/coin/huobi
+···
+
 
 ## 实例
 
