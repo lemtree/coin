@@ -23,7 +23,7 @@ import (
 func main() {
 	c := huobi.NewHuobiClient()
 
-	//获取BTC-CNY行情，已经解析后的json
+	//获取BTC-CNY行情，返回struct	
 	QuoData, err := c.Quotation(huobi.COIN_BTC, huobi.CURRENCY_CNY)
 	checkError(err)
 	fmt.Println(QuoData)
