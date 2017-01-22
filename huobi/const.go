@@ -5,13 +5,13 @@ const (
 	API_V3_URI = HOST + "apiv3/"
 )
 
-type periodT int
-type coinT int
-type currencyT int
+type PeriodT int
+type CoinT int
+type CurrencyT int
 
 // K线周期
 const (
-	PERIOD_1_MIN   periodT = 1
+	PERIOD_1_MIN   PeriodT = 1
 	PERIOD_5_MIN           = 5
 	PERIOD_15_MIN          = 15
 	PERIOD_30_MIN          = 30
@@ -24,21 +24,21 @@ const (
 
 // 数字货币
 const (
-	COIN_BTC coinT = 1 + iota
+	COIN_BTC CoinT = 1 + iota
 	COIN_LTC
 )
 
 //法币
 const (
-	CURRENCY_CNY currencyT = 1 + iota
+	CURRENCY_CNY CurrencyT = 1 + iota
 	CURRENCY_USD
 )
 
 // 根据coin获得coin name，获取url时用
-var coinNames map[coinT]string = map[coinT]string{COIN_BTC: "btc", COIN_LTC: "ltc"}
+var coinNames map[CoinT]string = map[CoinT]string{COIN_BTC: "btc", COIN_LTC: "ltc"}
 
 // 根据currency获得currency name，获取url时用
-var marketNames map[currencyT]string = map[currencyT]string{CURRENCY_CNY: "staticmarket", CURRENCY_USD: "usdmarket"}
+var marketNames map[CurrencyT]string = map[CurrencyT]string{CURRENCY_CNY: "staticmarket", CURRENCY_USD: "usdmarket"}
 
 // 账号下的资产信息
 type AccountInfo struct {

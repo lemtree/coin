@@ -112,7 +112,7 @@ func (hb *HuobiClient) GetAccountInfoJson() ([]byte, error) {
  * 获取当前所有正在进行的委托
  * coinType 数字货币 BTC\LTC
  */
-func (hb *HuobiClient) GetOrders(coinType coinT) ([]Order, error) {
+func (hb *HuobiClient) GetOrders(coinType CoinT) ([]Order, error) {
 	orders := []Order{}
 	jsonBlob, err := hb.GetOrdersJson(coinType)
 	if err != nil {
@@ -129,7 +129,7 @@ func (hb *HuobiClient) GetOrders(coinType coinT) ([]Order, error) {
  * 获取当前所有正在进行的委托(返回API的json字符串)
  * coinType 数字货币 BTC\LTC
  */
-func (hb *HuobiClient) GetOrdersJson(coinType coinT) ([]byte, error) {
+func (hb *HuobiClient) GetOrdersJson(coinType CoinT) ([]byte, error) {
 	p := map[string]string{"method": "get_orders", "coin_type": formatCoinType(coinType)}
 	parameter := hb.generateParameter(p)
 	return hb.SendTradingRequest(parameter)
@@ -140,7 +140,7 @@ func (hb *HuobiClient) GetOrdersJson(coinType coinT) ([]byte, error) {
  * coinType 数字货币 BTC\LTC
  * id 订单id
  */
-func (hb *HuobiClient) OrderInfo(coinType coinT, id int) (*OrderInfo, error) {
+func (hb *HuobiClient) OrderInfo(coinType CoinT, id int) (*OrderInfo, error) {
 	orderInfo := &OrderInfo{}
 	jsonBlob, err := hb.OrderInfoJson(coinType, id)
 	//	jsonBlob = []byte(`{"id":3748640502,"type":1,"order_price":"3000.00","order_amount":"0.0100","processed_price":"1.11","processed_amount":"2.22","vot":"3.33","fee":"4.44","total":"5.55","status":8}`)
@@ -159,7 +159,7 @@ func (hb *HuobiClient) OrderInfo(coinType coinT, id int) (*OrderInfo, error) {
  * coinType 数字货币 BTC\LTC
  * id 订单id
  */
-func (hb *HuobiClient) OrderInfoJson(coinType coinT, id int) ([]byte, error) {
+func (hb *HuobiClient) OrderInfoJson(coinType CoinT, id int) ([]byte, error) {
 	p := map[string]string{"method": "order_info", "coin_type": formatCoinType(coinType), "id": strconv.Itoa(id)}
 	parameter := hb.generateParameter(p)
 	return hb.SendTradingRequest(parameter)
@@ -171,7 +171,7 @@ func (hb *HuobiClient) OrderInfoJson(coinType coinT, id int) ([]byte, error) {
  * price 买价，期望购买的价位
  * amount 数字货币数量，要购买数字货币的数量
  */
-func (hb *HuobiClient) Buy(coinType coinT, price, amount float64) (*Result, error) {
+func (hb *HuobiClient) Buy(coinType CoinT, price, amount float64) (*Result, error) {
 	result := &Result{}
 	jsonBlob, err := hb.BuyJson(coinType, price, amount)
 	if err != nil {
@@ -190,7 +190,7 @@ func (hb *HuobiClient) Buy(coinType coinT, price, amount float64) (*Result, erro
  * price 买价，期望购买的价位
  * amount 数字货币数量，要购买数字货币的数量
  */
-func (hb *HuobiClient) BuyJson(coinType coinT, price, amount float64) ([]byte, error) {
+func (hb *HuobiClient) BuyJson(coinType CoinT, price, amount float64) ([]byte, error) {
 	p := map[string]string{"method": "buy", "coin_type": formatCoinType(coinType), "price": formatPrice(price), "amount": formatCoinAmout(amount)}
 	parameter := hb.generateParameter(p)
 	return hb.SendTradingRequest(parameter)
@@ -202,7 +202,7 @@ func (hb *HuobiClient) BuyJson(coinType coinT, price, amount float64) ([]byte, e
  * price 卖价，期望卖出的价位
  * amount 数字货币数量，卖出的coinType的数量
  */
-func (hb *HuobiClient) Sell(coinType coinT, price, amount float64) (*Result, error) {
+func (hb *HuobiClient) Sell(coinType CoinT, price, amount float64) (*Result, error) {
 	result := &Result{}
 	jsonBlob, err := hb.SellJson(coinType, price, amount)
 	if err != nil {
@@ -221,7 +221,7 @@ func (hb *HuobiClient) Sell(coinType coinT, price, amount float64) (*Result, err
  * price 卖价，期望卖出的价位
  * amount 数字货币数量，卖出的coinType的数量
  */
-func (hb *HuobiClient) SellJson(coinType coinT, price, amount float64) ([]byte, error) {
+func (hb *HuobiClient) SellJson(coinType CoinT, price, amount float64) ([]byte, error) {
 	p := map[string]string{"method": "sell", "coin_type": formatCoinType(coinType), "price": formatPrice(price), "amount": formatCoinAmout(amount)}
 	parameter := hb.generateParameter(p)
 	return hb.SendTradingRequest(parameter)
@@ -232,7 +232,7 @@ func (hb *HuobiClient) SellJson(coinType coinT, price, amount float64) ([]byte, 
  * coinType 买入的数字货币 BTC\LTC
  * amount 法币金额。要买入多少钱的数字货币，单位CNY/USD，金额精确到0.01元，最少为1元
  */
-func (hb *HuobiClient) BuyMarket(coinType coinT, amount float64) (*Result, error) {
+func (hb *HuobiClient) BuyMarket(coinType CoinT, amount float64) (*Result, error) {
 	result := &Result{}
 	jsonBlob, err := hb.BuyMarketJson(coinType, amount)
 	if err != nil {
@@ -250,7 +250,7 @@ func (hb *HuobiClient) BuyMarket(coinType coinT, amount float64) (*Result, error
  * coinType 买入的数字货币 BTC\LTC
  * amount 法币金额。要买入多少钱的数字货币，单位CNY/USD，金额精确到0.01元，最少为1元
  */
-func (hb *HuobiClient) BuyMarketJson(coinType coinT, amount float64) ([]byte, error) {
+func (hb *HuobiClient) BuyMarketJson(coinType CoinT, amount float64) ([]byte, error) {
 	p := map[string]string{"method": "buy_market", "coin_type": formatCoinType(coinType), "amount": formatPrice(amount)}
 	parameter := hb.generateParameter(p)
 	return hb.SendTradingRequest(parameter)
@@ -261,7 +261,7 @@ func (hb *HuobiClient) BuyMarketJson(coinType coinT, amount float64) ([]byte, er
  * coinType 卖出的数字货币 BTC\LTC
  * amount 要卖出的btc/ltc数量，精确到0.0001个币, 但是最小卖出为0.001币（比如卖出3.1024个币）
  */
-func (hb *HuobiClient) SellMarket(coinType coinT, amount float64) (*Result, error) {
+func (hb *HuobiClient) SellMarket(coinType CoinT, amount float64) (*Result, error) {
 	result := &Result{}
 	jsonBlob, err := hb.SellMarketJson(coinType, amount)
 	if err != nil {
@@ -279,7 +279,7 @@ func (hb *HuobiClient) SellMarket(coinType coinT, amount float64) (*Result, erro
  * coinType 卖出的数字货币 BTC\LTC
  * amount 要卖出的btc/ltc数量，精确到0.0001个币
  */
-func (hb *HuobiClient) SellMarketJson(coinType coinT, amount float64) ([]byte, error) {
+func (hb *HuobiClient) SellMarketJson(coinType CoinT, amount float64) ([]byte, error) {
 	p := map[string]string{"method": "sell_market", "coin_type": formatCoinType(coinType), "amount": formatCoinAmout(amount)}
 	parameter := hb.generateParameter(p)
 	return hb.SendTradingRequest(parameter)
@@ -290,7 +290,7 @@ func (hb *HuobiClient) SellMarketJson(coinType coinT, amount float64) ([]byte, e
  * coinType 数字货币 BTC\LTC
  * id 要取消的委托id
  */
-func (hb *HuobiClient) CancelOrder(coinType coinT, id int) (*Result, error) {
+func (hb *HuobiClient) CancelOrder(coinType CoinT, id int) (*Result, error) {
 	result := &Result{}
 	jsonBlob, err := hb.CancelOrderJson(coinType, id)
 	if err != nil {
@@ -308,7 +308,7 @@ func (hb *HuobiClient) CancelOrder(coinType coinT, id int) (*Result, error) {
  * coinType 数字货币 BTC\LTC
  * id 要取消的委托id
  */
-func (hb *HuobiClient) CancelOrderJson(coinType coinT, id int) ([]byte, error) {
+func (hb *HuobiClient) CancelOrderJson(coinType CoinT, id int) ([]byte, error) {
 	p := map[string]string{"method": "cancel_order", "coin_type": formatCoinType(coinType), "id": strconv.Itoa(id)}
 	parameter := hb.generateParameter(p)
 	return hb.SendTradingRequest(parameter)
@@ -318,7 +318,7 @@ func (hb *HuobiClient) CancelOrderJson(coinType coinT, id int) ([]byte, error) {
  * 查询个人最新10条成交订单
  * coinType 数字货币 BTC\LTC
  */
-func (hb *HuobiClient) GetNewDealOrders(coinType coinT) ([]OrderTraded, error) {
+func (hb *HuobiClient) GetNewDealOrders(coinType CoinT) ([]OrderTraded, error) {
 	orders := []OrderTraded{}
 	jsonBlob, err := hb.GetNewDealOrdersJson(coinType)
 	if err != nil {
@@ -335,7 +335,7 @@ func (hb *HuobiClient) GetNewDealOrders(coinType coinT) ([]OrderTraded, error) {
  * 查询个人最新10条成交订单(返回API的json字符串)
  * coinType 数字货币 BTC\LTC
  */
-func (hb *HuobiClient) GetNewDealOrdersJson(coinType coinT) ([]byte, error) {
+func (hb *HuobiClient) GetNewDealOrdersJson(coinType CoinT) ([]byte, error) {
 	p := map[string]string{"method": "get_new_deal_orders", "coin_type": formatCoinType(coinType)}
 	parameter := hb.generateParameter(p)
 	return hb.SendTradingRequest(parameter)
@@ -395,6 +395,6 @@ func formatCoinAmout(amount float64) string {
  * 格式化数字货币类型为string。
  * 所有提交post的参数均为string类型
  */
-func formatCoinType(coinType coinT) string {
+func formatCoinType(coinType CoinT) string {
 	return strconv.Itoa(int(coinType))
 }

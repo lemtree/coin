@@ -24,7 +24,7 @@ var RealTimeTransactionUrl = HOST + "%s/detail_%s_json.js"
  * period 周期
  * length 数据条数
  */
-func (hb *HuobiClient) Kline(coinType coinT, currencyType currencyT, period periodT, length int) ([]Kline, error) {
+func (hb *HuobiClient) Kline(coinType CoinT, currencyType CurrencyT, period PeriodT, length int) ([]Kline, error) {
 	klines := []Kline{}
 	dataMap := [][]interface{}{}
 	jsonBlob, err := hb.KlineJson(coinType, currencyType, period, length)
@@ -57,7 +57,7 @@ func (hb *HuobiClient) Kline(coinType coinT, currencyType currencyT, period peri
  * period 周期
  * length 数据条数
  */
-func (hb *HuobiClient) KlineJson(coinType coinT, currencyType currencyT, period periodT, length int) ([]byte, error) {
+func (hb *HuobiClient) KlineJson(coinType CoinT, currencyType CurrencyT, period PeriodT, length int) ([]byte, error) {
 	uri := hb.generateKlineApiUrl(coinType, currencyType, period)
 	v := url.Values{}
 	v.Set("length", strconv.Itoa(length))
@@ -66,7 +66,7 @@ func (hb *HuobiClient) KlineJson(coinType coinT, currencyType currencyT, period 
 }
 
 // 根据cointype返回coin的小写名称 btc/ltc
-func (hb *HuobiClient) getCoinName(coinType coinT) string {
+func (hb *HuobiClient) getCoinName(coinType CoinT) string {
 	if coinName, ok := coinNames[coinType]; ok {
 		return coinName
 	}
@@ -74,14 +74,14 @@ func (hb *HuobiClient) getCoinName(coinType coinT) string {
 }
 
 // 根据currency返回market cny:staticmarket usd:usdmarket
-func (hb *HuobiClient) getMarketName(currencyType currencyT) string {
+func (hb *HuobiClient) getMarketName(currencyType CurrencyT) string {
 	if marketName, ok := marketNames[currencyType]; ok {
 		return marketName
 	}
 	return ""
 }
 
-func (hb *HuobiClient) generateKlineApiUrl(coinType coinT, currencyType currencyT, period periodT) string {
+func (hb *HuobiClient) generateKlineApiUrl(coinType CoinT, currencyType CurrencyT, period PeriodT) string {
 	coinName := hb.getCoinName(coinType)
 	marketName := hb.getMarketName(currencyType)
 	return fmt.Sprintf(KlineUrl, marketName, coinName, period)
@@ -90,21 +90,21 @@ func (hb *HuobiClient) generateKlineApiUrl(coinType coinT, currencyType currency
 /**
  * BTC-CNY K线图
  */
-func (hb *HuobiClient) KlineBtcCny(period periodT, length int) ([]Kline, error) {
+func (hb *HuobiClient) KlineBtcCny(period PeriodT, length int) ([]Kline, error) {
 	return hb.Kline(COIN_BTC, CURRENCY_CNY, period, length)
 }
 
 /**
  * BTC-USD K线图
  */
-func (hb *HuobiClient) KlineBtcUsd(period periodT, length int) ([]Kline, error) {
+func (hb *HuobiClient) KlineBtcUsd(period PeriodT, length int) ([]Kline, error) {
 	return hb.Kline(COIN_BTC, CURRENCY_USD, period, length)
 }
 
 /**
  * LTC-USD K线图
  */
-func (hb *HuobiClient) KlineLtcCny(period periodT, length int) ([]Kline, error) {
+func (hb *HuobiClient) KlineLtcCny(period PeriodT, length int) ([]Kline, error) {
 	return hb.Kline(COIN_LTC, CURRENCY_CNY, period, length)
 }
 
@@ -113,7 +113,7 @@ func (hb *HuobiClient) KlineLtcCny(period periodT, length int) ([]Kline, error) 
  * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  */
-func (hb *HuobiClient) Quotation(coinType coinT, currencyType currencyT) (*RealTimeQuotation, error) {
+func (hb *HuobiClient) Quotation(coinType CoinT, currencyType CurrencyT) (*RealTimeQuotation, error) {
 	realTimeQuotation := &RealTimeQuotation{}
 	jsonBlob, err := hb.QuotationJson(coinType, currencyType)
 	if err != nil {
@@ -131,7 +131,7 @@ func (hb *HuobiClient) Quotation(coinType coinT, currencyType currencyT) (*RealT
  * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  */
-func (hb *HuobiClient) QuotationJson(coinType coinT, currencyType currencyT) ([]byte, error) {
+func (hb *HuobiClient) QuotationJson(coinType CoinT, currencyType CurrencyT) ([]byte, error) {
 	coinName := hb.getCoinName(coinType)
 	marketName := hb.getMarketName(currencyType)
 	uri := fmt.Sprintf(QuotationUrl, marketName, coinName)
@@ -144,7 +144,7 @@ func (hb *HuobiClient) QuotationJson(coinType coinT, currencyType currencyT) ([]
  * currency 法币类型 CNY\USD
  * length 返回的数据条数
  */
-func (hb *HuobiClient) Depth(coinType coinT, currencyType currencyT, length int) (*Depth, error) {
+func (hb *HuobiClient) Depth(coinType CoinT, currencyType CurrencyT, length int) (*Depth, error) {
 	depths := &Depth{}
 	jsonBlob, err := hb.DepthJson(coinType, currencyType, length)
 	if err != nil {
@@ -163,7 +163,7 @@ func (hb *HuobiClient) Depth(coinType coinT, currencyType currencyT, length int)
  * currency 法币类型 CNY\USD
  * length 返回的数据条数
  */
-func (hb *HuobiClient) DepthJson(coinType coinT, currencyType currencyT, length int) ([]byte, error) {
+func (hb *HuobiClient) DepthJson(coinType CoinT, currencyType CurrencyT, length int) ([]byte, error) {
 	coinName := hb.getCoinName(coinType)
 	marketName := hb.getMarketName(currencyType)
 	uri := fmt.Sprintf(DepthUrl, marketName, coinName, length)
@@ -175,7 +175,7 @@ func (hb *HuobiClient) DepthJson(coinType coinT, currencyType currencyT, length 
  * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  */
-func (hb *HuobiClient) RealTimeTransaction(coinType coinT, currencyType currencyT) (*RealTimeTransactionData, error) {
+func (hb *HuobiClient) RealTimeTransaction(coinType CoinT, currencyType CurrencyT) (*RealTimeTransactionData, error) {
 	transactionData := &RealTimeTransactionData{}
 	jsonBlob, err := hb.RealTimeTransactionJson(coinType, currencyType)
 	if err != nil {
@@ -193,7 +193,7 @@ func (hb *HuobiClient) RealTimeTransaction(coinType coinT, currencyType currency
  * coinType 数字货币 BTC\LTC
  * currency 法币类型 CNY\USD
  */
-func (hb *HuobiClient) RealTimeTransactionJson(coinType coinT, currencyType currencyT) ([]byte, error) {
+func (hb *HuobiClient) RealTimeTransactionJson(coinType CoinT, currencyType CurrencyT) ([]byte, error) {
 	coinName := hb.getCoinName(coinType)
 	marketName := hb.getMarketName(currencyType)
 	uri := fmt.Sprintf(RealTimeTransactionUrl, marketName, coinName)
