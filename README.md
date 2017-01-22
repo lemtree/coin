@@ -6,7 +6,7 @@ digiccy trading platform API collection, such as Bitcoin, Litecoin. current comp
 
 ## 安装
 ```go
-go get -u github.com/lemtree/coin/huobi
+go get -u github.com/lemtree/coin
 ```
 
 
