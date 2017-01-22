@@ -11,11 +11,11 @@ type CurrencyT int
 
 // K线周期
 const (
-	PERIOD_1_MIN   PeriodT = 1
-	PERIOD_5_MIN           = 5
-	PERIOD_15_MIN          = 15
-	PERIOD_30_MIN          = 30
-	PERIOD_60_MIN          = 60
+	PERIOD_1_MINS  PeriodT = 1
+	PERIOD_5_MINS          = 5
+	PERIOD_15_MINS         = 15
+	PERIOD_30_MINS         = 30
+	PERIOD_60_MINS         = 60
 	PERIOD_1_DAY           = 100
 	PERIOD_1_WEEK          = 200
 	PERIOD_1_MONTH         = 300
