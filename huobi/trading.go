@@ -364,9 +364,12 @@ func (hb *HuobiClient) SendRequest(uri, parameter string) ([]byte, error) {
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value") //post方式需要
 	req.Header.Add("User-Agent", hb.userAgent)
 	resp, err := hb.httpClient.Do(req) //发送请求
-	defer resp.Body.Close()            //一定要关闭resp.Body
-	data, err := ioutil.ReadAll(resp.Body)
-	return data, err
+	data := []byte{}
+	if err != nil {
+		return data, err
+	}
+	defer resp.Body.Close() //一定要关闭resp.Body
+	return ioutil.ReadAll(resp.Body)
 }
 
 func checkErr(err error) {
