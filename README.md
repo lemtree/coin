@@ -17,7 +17,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/lemtree/coin/huobi"
 )
 
